@@ -1,0 +1,44 @@
+import time
+
+def bot_responde(texto):
+    print("Bot:", texto)
+    time.sleep(1)
+
+def cliente_responde(prompt):
+    resposta = input(f"Você: {prompt}")
+    return resposta.lower()
+
+def iniciar_conversa():
+    bot_responde("Olá! Bem-vindo à Frutaria do Bot. 🍎🍌🍇")
+    nome = cliente_responde("Qual o seu nome? ")
+    bot_responde(f"Prazer em te conhecer, {nome.capitalize()}!")
+
+    bot_responde("Hoje temos as seguintes frutas disponíveis:")
+    frutas = {
+        "maçã": 3.50,
+        "banana": 2.00,
+        "uva": 4.00,
+        "laranja": 2.50
+    }
+
+    for fruta, preco in frutas.items():
+        bot_responde(f"- {fruta.capitalize()} por R$ {preco:.2f} o kg")
+
+    while True:
+        escolha = cliente_responde("Qual fruta você gostaria de comprar? (digite 'sair' para encerrar) ")
+        if escolha == "sair":
+            bot_responde("Obrigado pela visita! Volte sempre. 😊")
+            break
+        elif escolha in frutas:
+            quantidade = cliente_responde(f"Quantos kg de {escolha} você deseja? ")
+            try:
+                kg = float(quantidade)
+                total = kg * frutas[escolha]
+                bot_responde(f"Você escolheu {kg:.2f} kg de {escolha}, totalizando R$ {total:.2f}.")
+            except ValueError:
+                bot_responde("Quantidade inválida. Tente novamente.")
+        else:
+            bot_responde("Desculpe, não temos essa fruta. 😕")
+
+if __name__ == "__main__":
+    iniciar_conversa()
