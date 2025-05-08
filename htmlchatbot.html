@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Bot de Frutas</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🍎 ChatBot de Vendas de Frutas</h1>
+        <form method="POST">
+            <label for="fruta">Escolha uma fruta:</label>
+            <select name="fruta" id="fruta">
+                {% for fruta in frutas %}
+                <option value="{{ fruta }}">{{ fruta.capitalize() }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="quantidade">Quantidade (kg):</label>
+            <input type="number" name="quantidade" step="0.1" required>
+
+            <button type="submit">Calcular</button>
+        </form>
+
+        {% if resultado %}
+        <div class="resultado">
+            <p>{{ resultado }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
