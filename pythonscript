@@ -1,44 +1,76 @@
 import time
 
+# Lista de frutas e seus preços
+frutas = {
+    "maçã": 3.50,
+    "banana": 2.00,
+    "laranja": 2.80,
+    "abacaxi": 5.00,
+    "morango": 6.00
+}
+
+def mostrar_menu():
+    """
+    Função para exibir o menu de frutas e preços disponíveis.
+    """
+    print("Disponível para venda:")
+    for fruta, preco in frutas.items():
+        print(f"{fruta.capitalize()}: R${preco:.2f} por kg")
+
+def calcular_preco(fruta, quantidade):
+    """
+    Função para calcular o preço total da compra.
+    """
+    if fruta not in frutas:
+        return None
+    return frutas[fruta] * quantidade
+
 def bot_responde(texto):
+    """
+    Função que imprime a resposta do bot no terminal.
+    """
     print("Bot:", texto)
     time.sleep(1)
 
-def cliente_responde(prompt):
-    resposta = input(f"Você: {prompt}")
-    return resposta.lower()
-
 def iniciar_conversa():
-    bot_responde("Olá! Bem-vindo à Frutaria do Bot. 🍎🍌🍇")
-    nome = cliente_responde("Qual o seu nome? ")
-    bot_responde(f"Prazer em te conhecer, {nome.capitalize()}!")
-
-    bot_responde("Hoje temos as seguintes frutas disponíveis:")
-    frutas = {
-        "maçã": 3.50,
-        "banana": 2.00,
-        "uva": 4.00,
-        "laranja": 2.50
-    }
-
-    for fruta, preco in frutas.items():
-        bot_responde(f"- {fruta.capitalize()} por R$ {preco:.2f} o kg")
-
+    """
+    Função que inicia a conversa com o usuário e simula a venda de frutas.
+    """
+    bot_responde("Olá, cliente! Eu sou o bot de vendas de frutas. Como posso te ajudar hoje?")
+    mostrar_menu()
+    
     while True:
-        escolha = cliente_responde("Qual fruta você gostaria de comprar? (digite 'sair' para encerrar) ")
-        if escolha == "sair":
-            bot_responde("Obrigado pela visita! Volte sempre. 😊")
+        # Recebe a escolha da fruta
+        fruta = input("\nEscolha uma fruta ou digite 'sair' para finalizar: ").lower()
+        if fruta == 'sair':
+            bot_responde("Obrigado pela visita! Até logo!")
             break
-        elif escolha in frutas:
-            quantidade = cliente_responde(f"Quantos kg de {escolha} você deseja? ")
-            try:
-                kg = float(quantidade)
-                total = kg * frutas[escolha]
-                bot_responde(f"Você escolheu {kg:.2f} kg de {escolha}, totalizando R$ {total:.2f}.")
-            except ValueError:
-                bot_responde("Quantidade inválida. Tente novamente.")
+        
+        if fruta not in frutas:
+            bot_responde(f"Desculpe, não temos {fruta} em estoque. Tente novamente.")
+            continue
+        
+        # Recebe a quantidade de fruta desejada
+        try:
+            quantidade = float(input(f"Quantos quilos de {fruta} você deseja comprar? "))
+            if quantidade <= 0:
+                raise ValueError("A quantidade precisa ser positiva.")
+        except ValueError as e:
+            bot_responde(f"Erro: {e}")
+            continue
+
+        # Calcula o preço
+        preco_total = calcular_preco(fruta, quantidade)
+        if preco_total is not None:
+            bot_responde(f"O preço de {quantidade} kg de {fruta} é R${preco_total:.2f}.")
         else:
-            bot_responde("Desculpe, não temos essa fruta. 😕")
+            bot_responde("Desculpe, não conseguimos calcular o preço dessa fruta.")
+        
+        # Pergunta se o cliente quer continuar
+        continuar = input("\nVocê gostaria de comprar mais alguma fruta? (sim/não): ").lower()
+        if continuar != 'sim':
+            bot_responde("Obrigado pela compra! Até a próxima!")
+            break
 
 if __name__ == "__main__":
     iniciar_conversa()
