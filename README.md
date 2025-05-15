@@ -1,4 +1,4 @@
-# Chat Bot para Vendas de Frutas 🍎🍌🍇
+# Chat Bot para Vendas de Frutas 🍎🍇
 
 Este é um **bot simples** escrito em Python que simula uma conversa no terminal para **venda de frutas**. O cliente pode escolher entre diversas frutas e o bot calcula o valor total de acordo com a quantidade informada.
 
