@@ -1,7 +1,5 @@
-Recibo de Compra - 2025-05-08 18:12:00
+Recibo de Compra - 2025-05-08 18:33:02
 
-0.18kg de lichia - R$ 1.62
-0.98kg de morango - R$ 5.88
-1.0kg de maçã - R$ 3.50
+0.4kg de lichia - R$ 3.60
 
-Total pago: R$ 11.00
+Total pago: R$ 3.60
